@@ -13,7 +13,7 @@ RUN apk add --no-cache python3 py-pip
 ADD requirements.txt /opt/app
 
 #pip install depedencies
-RUN pip install -r /opt/app/requirements.txt
+RUN pip3 install -r /opt/app/requirements.txt
 
 #Add the flask app to /opt/app
 ADD app.py /opt/app/app.py
@@ -21,5 +21,8 @@ ADD app.py /opt/app/app.py
 #Devleopment flask runs on port 5000. Expose.
 EXPOSE 5000
 
-#Define the comamned to execute on container start. Must bind to local loopback not localhost.
+#Set the flask app env var
+ENV FLASK_APP=/opt/app/app.py
+
+#Define the comamned to execute on container start. Must bind to all, not localhost or loopback
 CMD flask run --host=0.0.0.0
