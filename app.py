@@ -31,39 +31,42 @@ def validate_content(content):
 
 # region: /fib/<int>/ Resource Endpoint
 
-@app.route('/fib/<int:fibonacci_number>', methods=['GET'])
-def get_fibonacci(fibonacci_number):
+@app.route('/fib/<int:fibonacci_index>', methods=['GET'])
+def get_fibonacci(fibonacci_index):
     try:
-        result = fibonacci(fibonacci_number)
+        result = fibonacci(fibonacci_index)
     except RecursionError:
         return Response(status=500,
                         response=f'The requested Fibonacci number was too large. Try a smaller value.')
     return Response(status=200,
-                    response=f'The {fibonacci_number}{get_suffix(fibonacci_number)} Fibonacci number is {result}')
+                    response=f'The {fibonacci_index}{get_suffix(fibonacci_index)} Fibonacci number is {result}')
 
 
-def compare_nth_response(fibonacci_number, value):
-    if fibonacci_number == value:
+def compare_nth_response(fibonacci_index, value, result):
+    if value == result:
         return Response(status=200,
-                        response=f'{value} is the {fibonacci_number}{get_suffix(fibonacci_number)} Fibonacci number')
+                        response=f'{value} is the {fibonacci_index}{get_suffix(fibonacci_index)} Fibonacci number')
     else:
         return Response(status=200,
-                        response=f'{value} is not the {fibonacci_number}{get_suffix(fibonacci_number)} Fibonacci number')
+                        response=f'{value} is not the {fibonacci_index}{get_suffix(fibonacci_index)} Fibonacci number')
 
 
-@app.route('/fib/<int:fibonacci_number>', methods=['POST'])
-def check_if_nth_fibonacci(fibonacci_number):
+@app.route('/fib/<int:fibonacci_index>', methods=['POST'])
+def check_if_nth_fibonacci(fibonacci_index):
+    if not request.json:
+        return Response(status=400,
+                        response='Request must have application/json')
     content = request.json
     value, error = validate_content(content)
     if error:
         return Response(status=400,
                         response=error)
     try:
-        fibonacci(fibonacci_number)
+        result = fibonacci(fibonacci_index)
     except RecursionError:
         return Response(status=500,
                         response=f'The requested Fibonacci number was too large. Try a smaller value.')
-    return compare_nth_response(fibonacci_number, value)
+    return compare_nth_response(fibonacci_index, value, result)
 
 
 # endregion
@@ -81,6 +84,9 @@ def compare_response(value, result):
 
 @app.route('/fib/', methods=['POST'])
 def check_if_fibonacci():
+    if not request.json:
+        return Response(status=400,
+                        response='Request must have application/json')
     content = request.json
     value, error = validate_content(content)
     if error:

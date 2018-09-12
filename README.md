@@ -24,11 +24,11 @@ The first returns the Fibonacci number for a given index, _n_. i.e. Fib(4)=3, wh
 * GET /fib/<int n\>/
 
 It also does some super useful things, like tell you if some value _m_ is the _n_ th Fibonacci number:
-* POST 'application/json' {"value": <int n\>} /fib/<n\>/
+* POST 'application/json' {"value": <int m\>} /fib/<n\>/
 
 Or, whether _m_ is a fibonacci at all:
 
 * POST 'application/json' {"value": <int m\>} to /fib/ 
  
  
-We'll be taking this service, dockerizing it, and then connect it to a docker instance of redis. This will give us the opportunity to see how docker works, and then touch on how docker compose makes life just a little easier.
+We'll be taking this service, dockerizing it, and then connecting it to a docker instance of redis. This will give us the opportunity to see how docker works, and then touch on how docker compose makes life just a little easier.
