@@ -32,3 +32,5 @@ Or, whether _m_ is a fibonacci at all:
  
  
 We'll be taking this service, dockerizing it, and then connecting it to a docker instance of redis. This will give us the opportunity to see how docker works, and then touch on how docker compose makes life just a little easier.
+
+The accompanying slides for this workshop are [here](https://docs.google.com/presentation/d/1urn-Kw59OGyloDLPF4CY7nxLtwB3sBJBcC-64fVd864/edit?usp=sharing)
