@@ -10,13 +10,13 @@ RUN mkdir /opt && mkdir /opt/app
 RUN apk add --no-cache python3 py-pip
 
 #Add the requirements file to /opt/app
-ADD requirements.txt /opt/app
+COPY requirements.txt /opt/app
 
 #pip install depedencies
 RUN pip3 install -r /opt/app/requirements.txt
 
 #Add the flask app to /opt/app
-ADD app.py /opt/app/app.py
+COPY app.py /opt/app/app.py
 
 #Devleopment flask runs on port 5000. Expose.
 EXPOSE 5000
