@@ -1,0 +1,13 @@
+version: '3'
+
+
+services:
+  webfib:
+    build: .
+    ports:
+      - 8000:5000
+    environment:
+      REDIS_ENABLED: "True"
+
+  redis:
+    image: redis:latest
